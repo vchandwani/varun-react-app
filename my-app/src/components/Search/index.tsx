@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import {Grid,CircularProgress, Button, TextField, Typography,Paper } from '@material-ui/core';
+import {Grid, Button, TextField, Typography,Paper } from '@material-ui/core';
 import styled from 'styled-components';
+import {DataOperation} from '../../types/employee';
 
 
 const ButtonStyled = styled(Button)`
@@ -14,12 +14,25 @@ const PaperStyled = styled(Paper)`
 `;
 
 export interface SearchProps {
-  onSearchClick?(params?:string):void;
-}
+  onSearchClick(searchParams?:string):void;
+ }
 
 const Search: React.FC<SearchProps> = ({ onSearchClick}: SearchProps)  : JSX.Element => {
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
+
+  const onClick = () : void => {
+    let formatSearchParams:string ='';
+    if(firstName) {
+      formatSearchParams = formatSearchParams ? formatSearchParams.concat('&') :formatSearchParams.concat('?');
+      formatSearchParams = formatSearchParams.concat('firstName='+firstName);
+    }
+    if(lastName) {
+      formatSearchParams = formatSearchParams ? formatSearchParams.concat('&') :formatSearchParams.concat('?');
+      formatSearchParams = formatSearchParams.concat('lastName='+lastName);
+    }
+    onSearchClick(formatSearchParams);
+  }
 
   return (
     <Grid container justify="center" alignItems="center" alignContent="center" direction="row">
@@ -35,8 +48,8 @@ const Search: React.FC<SearchProps> = ({ onSearchClick}: SearchProps)  : JSX.Ele
           <TextField placeholder="Last Name" fullWidth onChange={(e)=>setLastName(e.target.value)} value={lastName} />
         </Grid>
       </Grid>
-      <Grid item container xs={12} sm={8} justify="flex-end" alignItems="center">
-        <ButtonStyled variant="contained">
+      <Grid item container xs={12} justify="flex-end" alignItems="center">
+        <ButtonStyled variant="contained" onClick={onClick}>
           Search
         </ButtonStyled>
       </Grid>

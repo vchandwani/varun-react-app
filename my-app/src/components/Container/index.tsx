@@ -73,8 +73,7 @@ const Container = () : JSX.Element => {
           }          
     }
 
-    const onDataAction = (data?:EmployeeDataObject,operation?:DataOperation) : void => {
-        console.log(operation);
+    const onDataAction = (data?:EmployeeDataObject,operation?:DataOperation,searchParams?:string) : void => {
         if(operation === DataOperation.ADD) {
             dataOperation(UrlLink.REQUEST_URL,DataOperation.ADD,data);
         } else if (operation === DataOperation.EDIT) {
@@ -83,6 +82,11 @@ const Container = () : JSX.Element => {
             setConfirmationModal(false);
             dataOperation(UrlLink.REQUEST_URL,DataOperation.DELETE,data);
         }
+    }
+    const onSearchClick = (searchParams?:string) : void => {
+        let url:string = UrlLink.REQUEST_URL;
+        searchParams &&( url = url.concat(searchParams));
+        dataOperation(url,DataOperation.READ);
     }
 
     const onClose = () : void => {
@@ -95,7 +99,7 @@ const Container = () : JSX.Element => {
         <Grid item xs={12} container>
             <Typography component="h1" variant="h1">React App</Typography>
         </Grid>
-        <Search />
+        <Search onSearchClick={onSearchClick} />
         {displayMessage && 
         <Grid container item xs={12} justify="center">
              <DivSuccess>

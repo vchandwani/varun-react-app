@@ -44,8 +44,6 @@ const ActionForm: React.FC<ActionFormProps> = ({ data,onDataAction,isEdit,onCanc
     dateOfBirth: data?.dateOfBirth?data?.dateOfBirth:null,
     id : data?.id && data.id 
   }
-  console.log('isEdit');
-  console.log(isEdit);
   return (
     <Grid container justify="center" alignItems="center" alignContent="center" direction="row">
        <Formik
