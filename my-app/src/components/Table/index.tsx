@@ -6,19 +6,25 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import styled from 'styled-components';
-import {EmployeeDataObject} from '../../types/employee';
+import {EmployeeDataObject, DataOperation,UrlLink} from '../../types/employee';
+import {Grid,CircularProgress, Button } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 
 const StyledTable = styled(Table)`
-  background-color: #6772e5;
   color: #fff;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
   padding: 7px 14px;
-  &:hover {
-    background-color: #5469d4;
-  }
+`;
+const StyledTableContainer = styled(TableContainer)`
+  margin-top : 10px; 
+`;
+const StyledTableRow = styled(TableRow)`
+&:hover {
+  background-color: #f0f0f0;
+}
 `;
 
 const useStyles = makeStyles({
@@ -27,48 +33,55 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(name:string, calories:number, fat:number, carbs:number, protein:number) {
-  return { name, calories, fat, carbs, protein };
+export interface TableProps {
+  data : EmployeeDataObject[];
+  onActionClick(operation?:DataOperation,dataSet?:EmployeeDataObject):void;
 }
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-const EmployeeData = (props:EmployeeDataObject) : JSX.Element => {
+const EmployeeData: React.FC<TableProps> = ({ data,onActionClick}: TableProps)  : JSX.Element => {
   const classes = useStyles();
-
+  
   return (
-    <TableContainer component={Paper}>
-      <StyledTable className={classes.table} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </StyledTable>
-    </TableContainer>
+    <Grid container justify="center" alignItems="center" alignContent="center" direction="row">
+      <Grid item container xs={12} sm={8} justify="flex-end" alignItems="center">
+        <Button variant="contained" onClick={() => onActionClick(DataOperation.ADD)}>
+          Add Eemployee
+        </Button>
+      </Grid>
+      {data && 
+      <Grid item xs={12} sm={8}>
+        <StyledTableContainer>
+          <StyledTable className={classes.table} size="small" aria-label="a dense table">
+            <TableHead>
+              <TableRow>
+                <TableCell>F.Name</TableCell>
+                <TableCell>L.name</TableCell>
+                <TableCell>Date of Birth</TableCell>
+                <TableCell>Action</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data?.map((dataObject:EmployeeDataObject,index:number) => (
+                dataObject.firstName && (
+                <StyledTableRow key={index}>
+                  <TableCell>
+                    {dataObject.firstName}
+                  </TableCell>
+                  <TableCell>{dataObject.lastName}</TableCell>
+                  <TableCell>{dataObject.dateOfBirth}</TableCell>
+                  <TableCell>
+                    <DeleteIcon onClick={() => onActionClick(DataOperation.DELETE,dataObject)} />
+                    <EditIcon onClick={() => onActionClick(DataOperation.EDIT,dataObject)}/>
+                  </TableCell>
+                </StyledTableRow>
+                )
+              ))}
+            </TableBody>
+          </StyledTable>
+        </StyledTableContainer>
+      </Grid>
+      }
+    </Grid>
   )
 }
 

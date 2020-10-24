@@ -1,14 +1,24 @@
 export interface EmployeeDataObject {
-    first_name:string;
-    last_name:string;
-    date_of_birth:Date;
-    email?:string;
-    description?:string;
+    firstName:string;
+    lastName:string;
+    dateOfBirth:Date|null;
+    id?:number;
 }
 
-export interface DataOperation {
-    GET:'get',
-    POST:'post',
-    PUT:'put',
-    DELETE:'delete',
+export enum DataOperationRequest {
+    GET ='get',
+    POST = 'post',
+    PUT='put',
+    DELETE='delete',
+}
+
+export enum  DataOperation {
+    READ ='read',
+    ADD ='add',
+    EDIT = 'edit',
+    DELETE='delete',
+}
+
+export enum UrlLink {
+    REQUEST_URL='http://localhost:3000/employees'
 }
