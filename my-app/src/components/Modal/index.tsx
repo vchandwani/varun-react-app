@@ -1,13 +1,6 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import {Grid,Button,Dialog} from '@material-ui/core';
-import {EmployeeDataObject, DataOperation,UrlLink} from '../../types/employee';
-
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
-});
+import {EmployeeDataObject, DataOperation} from '../../types/employee';
 
 export interface TableProps {
   open :boolean;
@@ -17,7 +10,6 @@ export interface TableProps {
 }
 
 const ModalComponent: React.FC<TableProps> = ({ open,onClose,onDeleteClick,data}: TableProps)  : JSX.Element => {
-  const classes = useStyles();
   const rootRef = React.useRef(null);
 
   return (

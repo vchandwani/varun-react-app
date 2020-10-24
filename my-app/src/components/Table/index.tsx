@@ -7,8 +7,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import styled from 'styled-components';
-import {EmployeeDataObject, DataOperation,UrlLink} from '../../types/employee';
-import {Grid,CircularProgress, Button } from '@material-ui/core';
+import {EmployeeDataObject, DataOperation} from '../../types/employee';
+import {Grid, Button } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 

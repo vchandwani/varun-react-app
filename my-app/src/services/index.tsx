@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useState} from 'react'
-import {EmployeeDataObject,DataOperationRequest,DataOperation,UrlLink} from '../types/employee';
+import {EmployeeDataObject,DataOperation} from '../types/employee';
 
 export interface UseEmployeeDetails {
     dataOperation(
@@ -54,7 +54,11 @@ const useEmployeeDetails = () : UseEmployeeDetails => {
             try{
                 const res= await axios.post(url, dataObject);
                 const {data} = res;
-                return {operation : 'success'};
+                if(data){
+                    return {operation : 'success'};
+                } else {
+                    return {error : 'Somethign went wrong'};
+                }
             } catch (err){
                 return {error : 'Somethign went wrong'};
             } 
@@ -63,7 +67,11 @@ const useEmployeeDetails = () : UseEmployeeDetails => {
                 let urlFormat : string = `${url}/${dataObject?.id}`;
                 const res= await axios.put(urlFormat, dataObject);
                 const {data} = res;
-                return {operation : 'success'};
+                if(data){
+                    return {operation : 'success'};
+                } else {
+                    return {error : 'Somethign went wrong'};
+                }
             } catch (err){
                 return {error : 'Somethign went wrong'};
             } 
@@ -72,7 +80,11 @@ const useEmployeeDetails = () : UseEmployeeDetails => {
                 let urlFormat : string = `${url}/${dataObject?.id}`;
                 const res= await axios.delete(urlFormat);
                 const {data} = res;
-                return {operation : 'success'};
+                if(data){
+                    return {operation : 'success'};
+                } else {
+                    return {error : 'Somethign went wrong'};
+                }
             } catch (err){
                 return {error : 'Somethign went wrong'};
             } 

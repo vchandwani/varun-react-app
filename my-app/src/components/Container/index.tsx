@@ -7,7 +7,7 @@ import Search from '../Search';
 import ModalComponent from '../Modal';
 import {Grid,Typography,CircularProgress,Backdrop} from '@material-ui/core';
 import useEmployeeDetails from '../../services';
-import {EmployeeDataObject, DataOperationRequest,UrlLink,DataOperation} from '../../types/employee';
+import {EmployeeDataObject,UrlLink,DataOperation} from '../../types/employee';
 import styled from 'styled-components';
 
 
@@ -29,7 +29,7 @@ const Container = () : JSX.Element => {
     const [isEdit, setIsEdit] = useState<boolean>(false);
     const [selectedData, setSelectedData] = useState<EmployeeDataObject>(Object);
     const [displayMessage,setDisplayMessage] = useState<string>('');
-    const {dataOperation,resetParams, isSending,isSent,error,data,actioned} = useEmployeeDetails();
+    const {dataOperation, isSending,isSent,error,data,actioned} = useEmployeeDetails();
    
     useEffect(() => {
         //Load data on initial load
@@ -53,6 +53,7 @@ const Container = () : JSX.Element => {
                 setDefaultView(false);
                 setActionFormView(true);
                 setIsEdit(false);
+                break;
             case DataOperation.EDIT:
                 setActionFormView(true);
                 setDefaultView(false);
@@ -73,7 +74,7 @@ const Container = () : JSX.Element => {
           }          
     }
 
-    const onDataAction = (data?:EmployeeDataObject,operation?:DataOperation,searchParams?:string) : void => {
+    const onDataAction = (data?:EmployeeDataObject,operation?:DataOperation) : void => {
         if(operation === DataOperation.ADD) {
             dataOperation(UrlLink.REQUEST_URL,DataOperation.ADD,data);
         } else if (operation === DataOperation.EDIT) {

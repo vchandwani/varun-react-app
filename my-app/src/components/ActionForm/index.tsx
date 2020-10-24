@@ -1,11 +1,9 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
-import {EmployeeDataObject, DataOperation,UrlLink} from '../../types/employee';
-import {Grid,CircularProgress, TextField, Button } from '@material-ui/core';
+import {EmployeeDataObject, DataOperation} from '../../types/employee';
+import {Grid, TextField, Button } from '@material-ui/core';
 import { Formik, Form, Field, FieldProps } from 'formik';
 import * as Yup from 'yup';
-
 
 
 const StyledForm = styled(Form)`
@@ -55,7 +53,6 @@ const ActionForm: React.FC<ActionFormProps> = ({ data,onDataAction,isEdit,onCanc
         }}
       >
         {({ errors, touched, handleChange, handleBlur, values}) => (
-          console.log(errors),
           <StyledForm>
               <Field name={"firstName"}>
               {({ field, form, meta }: FieldProps) => (

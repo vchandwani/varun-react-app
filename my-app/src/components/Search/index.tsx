@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import {Grid, Button, TextField, Typography,Paper } from '@material-ui/core';
 import styled from 'styled-components';
-import {DataOperation} from '../../types/employee';
-
 
 const ButtonStyled = styled(Button)`
   margin: 20px 0;
