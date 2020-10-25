@@ -23,47 +23,60 @@ const data : EmployeeDataObject[] = [{
     dateOfBirth : new Date(),
     id: 2
   }
-]
+];
+const dataEmpty : EmployeeDataObject[] = [];
+
+
 const setup =({}) => {
   // Intial Setup for Container Component
-    return shallow(<EmployeeData
-      data={data}
-      onActionClick={mockOnActionClick}
-      />)
+  return shallow(<EmployeeData
+    data={data}
+    onActionClick={mockOnActionClick}
+  />)
 }  
-
-describe('Container initial load ',()=>{
+const setupEmpty =({}) => {
+  // Intial Setup for Container Component
+  return shallow(<EmployeeData
+    data={dataEmpty}
+    onActionClick={mockOnActionClick}
+  />)
+}  
+describe('Employee data table initial load ',()=>{
   let wrapper;
   let mockSetDefaultView = jest.fn(); 
 
   beforeEach(()=>{
     mockSetDefaultView.mockClear();
     React.useState = jest.fn(()=> [true, mockSetDefaultView]);
-    wrapper = setup({});
+    wrapper = setupEmpty({});
    })
-  it('renders Employee data table ', () => {
-    const tableContainer = findByTestAttr(wrapper,'tableContainer');
-    expect(tableContainer.exists()).toBe(true)
+  it('renders component with button', () => {
+    const tableButton = findByTestAttr(wrapper,'tableButton');
+    expect(tableButton.exists()).toBe(true);
   });  
-  it('renders Employee data table with two records', () => {
-    const dataTableRow = findByTestAttr(wrapper,'tableRow');
-    expect(dataTableRow.length).toBe(2)
-  });  
-}); 
-
-describe('Container add employee button check ',()=>{
-  let wrapper;
-  let mockSetDefaultView = jest.fn(); 
-
-  beforeEach(()=>{
-    mockSetDefaultView.mockClear();
-    React.useState = jest.fn(()=> [true, mockSetDefaultView]);
-    wrapper = setup({});
-   })
-  it('click on add employee button ', () => {
+  it('renders component and calls button function', () => {
     const addButton = findByTestAttr(wrapper,'tableButton');
     expect(addButton.text()).toBe('Add Employee');
     addButton.simulate("click");
     expect(mockOnActionClick).toHaveBeenCalled();
+  });  
+  it('renders component without table row', () => {
+    const tableRow = findByTestAttr(wrapper,'tableRow');
+    expect(tableRow.exists()).toBe(false);
+  }); 
+}); 
+ 
+describe('load table with proper data set ',()=>{
+  let wrapper;
+  let mockSetDefaultView = jest.fn(); 
+
+  beforeEach(()=>{
+    mockSetDefaultView.mockClear();
+    React.useState = jest.fn(()=> [true, mockSetDefaultView]);
+    wrapper = setup({});
+   })
+  it('has two rows of data present', () => {
+    const dataTableRow = findByTestAttr(wrapper,'tableRow');
+    expect(dataTableRow.length).toBe(2)
   }); 
 }); 

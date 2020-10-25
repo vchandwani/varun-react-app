@@ -62,7 +62,6 @@ const EmployeeData: React.FC<TableProps> = ({ data,onActionClick}: TableProps)  
             </TableHead>
             <TableBody>
               {data?.map((dataObject:EmployeeDataObject,index:number) => (
-                dataObject.firstName && (
                 <StyledTableRow key={index} data-test="tableRow">
                   <TableCell>
                     {dataObject.firstName}
@@ -74,7 +73,6 @@ const EmployeeData: React.FC<TableProps> = ({ data,onActionClick}: TableProps)  
                     <EditIcon onClick={() => onActionClick(DataOperation.EDIT,dataObject)}/>
                   </TableCell>
                 </StyledTableRow>
-                )
               ))}
             </TableBody>
           </StyledTable>

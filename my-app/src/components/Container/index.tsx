@@ -10,7 +10,6 @@ import useEmployeeDetails from '../../services';
 import {EmployeeDataObject,UrlLink,DataOperation} from '../../types/employee';
 import styled from 'styled-components';
 
-
 const DivSuccess = styled.div`
   color: green;
   background : white;
@@ -23,9 +22,9 @@ const DivError = styled.div`
 `;
 
 const Container = () : JSX.Element => {
-    const [defaultView, setDefaultView] = useState<boolean>(true);
+    const [isDefaultView, setIsDefaultView] = useState<boolean>(true);
     const [actionFormView, setActionFormView] = useState<boolean>(false);
-    const [confirmationModal, setConfirmationModal] = useState<boolean>(false);
+    const [isConfirmationModal, setIsConfirmationModal] = useState<boolean>(false);
     const [isEdit, setIsEdit] = useState<boolean>(false);
     const [selectedData, setSelectedData] = useState<EmployeeDataObject>(Object);
     const [displayMessage,setDisplayMessage] = useState<string>('');
@@ -39,7 +38,7 @@ const Container = () : JSX.Element => {
     useEffect(() => {
         //Load data on initial load
         if(isSent && !isSending && actioned){
-            setDefaultView(true);
+            setIsDefaultView(true);
             setActionFormView(false);
             dataOperation(UrlLink.REQUEST_URL,DataOperation.READ);
             setDisplayMessage('Success');
@@ -50,26 +49,26 @@ const Container = () : JSX.Element => {
     const onActionClick = (operation?:DataOperation,dataSet?:EmployeeDataObject) : void => {
         switch (operation) {
             case DataOperation.ADD:
-                setDefaultView(false);
+                setIsDefaultView(false);
                 setActionFormView(true);
                 setIsEdit(false);
                 break;
             case DataOperation.EDIT:
                 setActionFormView(true);
-                setDefaultView(false);
+                setIsDefaultView(false);
                 setIsEdit(true);
                 dataSet && setSelectedData(dataSet);
               break;
             case  DataOperation.DELETE:
-                setConfirmationModal(true);
-                setDefaultView(false);
+                setIsConfirmationModal(true);
+                setIsDefaultView(false);
                 setActionFormView(false);
                 dataSet && setSelectedData(dataSet);
                 setIsEdit(false);
               break;
             default:
-                setDefaultView(true);
-                setConfirmationModal(false);
+                setIsDefaultView(true);
+                setIsConfirmationModal(false);
                 setActionFormView(false);
           }          
     }
@@ -80,7 +79,7 @@ const Container = () : JSX.Element => {
         } else if (operation === DataOperation.EDIT) {
             dataOperation(UrlLink.REQUEST_URL,DataOperation.EDIT,data);
         } else if (operation === DataOperation.DELETE) {
-            setConfirmationModal(false);
+            setIsConfirmationModal(false);
             dataOperation(UrlLink.REQUEST_URL,DataOperation.DELETE,data);
         }
     }
@@ -91,8 +90,8 @@ const Container = () : JSX.Element => {
     }
 
     const onClose = () : void => {
-        setDefaultView(true);
-        setConfirmationModal(false);
+        setIsDefaultView(true);
+        setIsConfirmationModal(false);
     }
 
     return (
@@ -102,13 +101,13 @@ const Container = () : JSX.Element => {
         </Grid>
         <Search data-test="searchContainer" onSearchClick={onSearchClick} />
         {displayMessage && 
-        <Grid container item xs={12} justify="center" data-test="successMessage">
-             <DivSuccess>
-                {displayMessage}
-             </DivSuccess>
-        </Grid>
+            <Grid container item xs={12} justify="center" data-test="successMessage">
+                <DivSuccess>
+                    {displayMessage}
+                </DivSuccess>
+            </Grid>
         }
-        {defaultView && data && 
+        {isDefaultView && data && 
         <Grid item xs={12} container data-test="employeeData">
             <EmployeeData data={data} onActionClick={onActionClick}  />
         </Grid>
@@ -122,8 +121,8 @@ const Container = () : JSX.Element => {
                 <CircularProgress color="inherit" />
             </Backdrop>
         }
-        {confirmationModal && 
-            <ModalComponent data-test="modalContainer" open={confirmationModal} onClose={onClose} onDeleteClick={onDataAction} data={selectedData}/>
+        {isConfirmationModal && 
+            <ModalComponent data-test="modalContainer" open={isConfirmationModal} onClose={onClose} onDeleteClick={onDataAction} data={selectedData}/>
         }
         {error && 
             <Grid container item xs={12} data-test="errorMessage">
