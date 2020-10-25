@@ -37,7 +37,7 @@ const useEmployeeDetails = () : UseEmployeeDetails => {
         setActioned(false);
     }
     //Api Call for data request
-    const dataOperate = async (
+    const dataOperateCall = async (
         url:string,
         request?:DataOperation,
         dataObject?:EmployeeDataObject,
@@ -99,7 +99,7 @@ const useEmployeeDetails = () : UseEmployeeDetails => {
     ): Promise<void> => {
         setIsSending(true);
         setIsSent(false);
-        const employeeList = await dataOperate(url,request? request : DataOperation.READ,employeeData);
+        const employeeList = await dataOperateCall(url,request? request : DataOperation.READ,employeeData);
         if(employeeList?.data){
             setData(employeeList?.data);
             setIsSending(false);

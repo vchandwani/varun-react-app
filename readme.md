@@ -10,7 +10,7 @@ Test can be executed by below command on my-app folder:
     ->npm test
 
 
-I have used jest for running test.
+I have used jest enzyme for running test.
 
 
 I wasn't able to add like search on first name and last name, I could have added that on the existing data set.
