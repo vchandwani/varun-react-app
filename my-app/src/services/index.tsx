@@ -48,7 +48,7 @@ const useEmployeeDetails = () : UseEmployeeDetails => {
                 const {data} = res;
                 return {data : data};
             } catch (err){
-                return {error : 'Somethign went wrong'};
+                return {error : 'Something went wrong'};
             } 
         } else if(request === DataOperation.ADD) {
             try{
@@ -57,10 +57,10 @@ const useEmployeeDetails = () : UseEmployeeDetails => {
                 if(data){
                     return {operation : 'success'};
                 } else {
-                    return {error : 'Somethign went wrong'};
+                    return {error : 'Something went wrong'};
                 }
             } catch (err){
-                return {error : 'Somethign went wrong'};
+                return {error : 'Something went wrong'};
             } 
         }  else if(request === DataOperation.EDIT) {
             try{
@@ -70,10 +70,10 @@ const useEmployeeDetails = () : UseEmployeeDetails => {
                 if(data){
                     return {operation : 'success'};
                 } else {
-                    return {error : 'Somethign went wrong'};
+                    return {error : 'Something went wrong'};
                 }
             } catch (err){
-                return {error : 'Somethign went wrong'};
+                return {error : 'Something went wrong'};
             } 
         }  else if(request === DataOperation.DELETE) {
             try{
@@ -83,10 +83,10 @@ const useEmployeeDetails = () : UseEmployeeDetails => {
                 if(data){
                     return {operation : 'success'};
                 } else {
-                    return {error : 'Somethign went wrong'};
+                    return {error : 'Something went wrong'};
                 }
             } catch (err){
-                return {error : 'Somethign went wrong'};
+                return {error : 'Something went wrong'};
             } 
         }
      }

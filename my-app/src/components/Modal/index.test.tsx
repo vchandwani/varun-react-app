@@ -1,6 +1,5 @@
 import React from 'react';
 import { findByTestAttr } from '../../../test/testUtils';
-import {EmployeeDataObject, DataOperation} from '../../types/employee';
 import ModalComponent from './index';
 import Enzyme, { shallow } from 'enzyme';
 import EnzymeAdapter from 'enzyme-adapter-react-16';

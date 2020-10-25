@@ -43,9 +43,9 @@ const EmployeeData: React.FC<TableProps> = ({ data,onActionClick}: TableProps)  
   
   return (
     <Grid container justify="center" alignItems="center" alignContent="center" direction="row" data-test="tableContainer">
-      <Grid item container xs={12} sm={8} justify="flex-end" alignItems="center" data-test="tableButton">
-        <Button variant="contained" onClick={() => onActionClick(DataOperation.ADD)}>
-          Add Eemployee
+      <Grid item container xs={12} sm={8} justify="flex-end" alignItems="center">
+        <Button variant="contained" onClick={() => onActionClick(DataOperation.ADD)} data-test="tableButton">
+          Add Employee
         </Button>
       </Grid>
       {data && 

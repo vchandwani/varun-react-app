@@ -34,25 +34,25 @@ const Search: React.FC<SearchProps> = ({ onSearchClick}: SearchProps)  : JSX.Ele
 
   return (
     <Grid container justify="center" alignItems="center" alignContent="center" direction="row" data-test="searchContainer">
-    <PaperStyled  >
-      <Grid item sm={8} xs={12} container data-test="searchHeader">
-        <Typography component="h2">Search</Typography> 
-      </Grid>
-      <Grid item container spacing={2} justify="space-between">
-        <Grid item xs={12} sm={6}>
-          <TextField placeholder="First Name" fullWidth onChange={(e)=>setFirstName(e.target.value)} value={firstName} />
+      <PaperStyled  >
+        <Grid item sm={8} xs={12} container data-test="searchHeader">
+          <Typography component="h2">Search</Typography> 
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField placeholder="Last Name" fullWidth onChange={(e)=>setLastName(e.target.value)} value={lastName} />
+        <Grid item container spacing={2} justify="space-between">
+          <Grid item xs={12} sm={6}>
+            <TextField placeholder="First Name" data-test="firstName" fullWidth onChange={(e)=>setFirstName(e.target.value)} value={firstName} />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField placeholder="Last Name" data-test="lastName" fullWidth onChange={(e)=>setLastName(e.target.value)} value={lastName} />
+          </Grid>
         </Grid>
-      </Grid>
-      <Grid item container xs={12} justify="flex-end" alignItems="center" data-test="searchButton"> 
-        <ButtonStyled variant="contained" onClick={onClick}>
-          Search
-        </ButtonStyled>
-      </Grid>
-       
-    </PaperStyled>
+        <Grid item container xs={12} justify="flex-end" alignItems="center"> 
+          <ButtonStyled variant="contained" onClick={onClick} data-test="searchButton">
+            Search
+          </ButtonStyled>
+        </Grid>
+        
+      </PaperStyled>
     </Grid>
   )
 }

@@ -98,7 +98,7 @@ const Container = () : JSX.Element => {
     return (
         <>
         <Grid item xs={12} container data-test="appContainer">
-            <Typography component="h1" variant="h1">React App</Typography>
+            <Typography component="h1" variant="h1" data-test="header">React App</Typography>
         </Grid>
         <Search data-test="searchContainer" onSearchClick={onSearchClick} />
         {displayMessage && 
@@ -123,7 +123,7 @@ const Container = () : JSX.Element => {
             </Backdrop>
         }
         {confirmationModal && 
-             <ModalComponent data-test="modalContainer" open={confirmationModal} onClose={onClose} onDeleteClick={onDataAction} data={selectedData}/>
+            <ModalComponent data-test="modalContainer" open={confirmationModal} onClose={onClose} onDeleteClick={onDataAction} data={selectedData}/>
         }
         {error && 
             <Grid container item xs={12} data-test="errorMessage">
