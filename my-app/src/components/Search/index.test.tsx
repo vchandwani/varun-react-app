@@ -3,7 +3,6 @@ import { findByTestAttr } from '../../../test/testUtils';
 import Search from './index';
 import Enzyme, { shallow } from 'enzyme';
 import EnzymeAdapter from 'enzyme-adapter-react-16';
-import {EmployeeDataObject} from '../../types/employee';
 
 Enzyme.configure({
   adapter: new EnzymeAdapter(),
