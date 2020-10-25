@@ -9,11 +9,11 @@ Enzyme.configure({
 });
 
 const setup =() => {
-  // Intial Setup for Modal Component
+  // Intial Setup for App Component
   return shallow(<App  />)
 }
 
-test('renders learn react link', () => {
+test('renders app', () => {
   const wrapper = setup();
   expect(wrapper.length).toBe(1);
 });
