@@ -21,13 +21,14 @@ const ModalComponent: React.FC<TableProps> = ({ open,onClose,onDeleteClick,data}
       aria-describedby="server-modal-description"
       container={() => rootRef.current}
       onClose={onClose}
+      data-test="modalContainer"
     >
       <div>
-        <h2 id="server-modal-title">Are ypou sure to delete ?</h2>
+        <h2 id="server-modal-title">Are you sure to delete ?</h2>
        </div>
        <Grid>
-         <Button variant="contained" onClick={onClose}>Cancel</Button>
-         <Button variant="outlined" onClick={() => onDeleteClick(data,DataOperation.DELETE)}>Proceed</Button>
+         <Button variant="contained" onClick={onClose} data-test="cancelModal">Cancel</Button>
+         <Button variant="outlined" onClick={() => onDeleteClick(data,DataOperation.DELETE)} data-test="proceedButton">Proceed</Button>
         </Grid>
     </Dialog>
   )

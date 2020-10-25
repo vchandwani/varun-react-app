@@ -33,9 +33,9 @@ const Search: React.FC<SearchProps> = ({ onSearchClick}: SearchProps)  : JSX.Ele
   }
 
   return (
-    <Grid container justify="center" alignItems="center" alignContent="center" direction="row">
+    <Grid container justify="center" alignItems="center" alignContent="center" direction="row" data-test="searchContainer">
     <PaperStyled  >
-      <Grid item sm={8} xs={12} container>
+      <Grid item sm={8} xs={12} container data-test="searchHeader">
         <Typography component="h2">Search</Typography> 
       </Grid>
       <Grid item container spacing={2} justify="space-between">
@@ -46,7 +46,7 @@ const Search: React.FC<SearchProps> = ({ onSearchClick}: SearchProps)  : JSX.Ele
           <TextField placeholder="Last Name" fullWidth onChange={(e)=>setLastName(e.target.value)} value={lastName} />
         </Grid>
       </Grid>
-      <Grid item container xs={12} justify="flex-end" alignItems="center">
+      <Grid item container xs={12} justify="flex-end" alignItems="center" data-test="searchButton"> 
         <ButtonStyled variant="contained" onClick={onClick}>
           Search
         </ButtonStyled>

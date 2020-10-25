@@ -43,7 +43,7 @@ const ActionForm: React.FC<ActionFormProps> = ({ data,onDataAction,isEdit,onCanc
     id : data?.id && data.id 
   }
   return (
-    <Grid container justify="center" alignItems="center" alignContent="center" direction="row">
+    <Grid container justify="center" alignItems="center" alignContent="center" direction="row" data-test="actionForm">
        <Formik
         initialValues={initialValues}
         validationSchema={EmployeeSchema}

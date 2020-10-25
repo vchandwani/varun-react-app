@@ -97,24 +97,24 @@ const Container = () : JSX.Element => {
 
     return (
         <>
-        <Grid item xs={12} container>
+        <Grid item xs={12} container data-test="appContainer">
             <Typography component="h1" variant="h1">React App</Typography>
         </Grid>
-        <Search onSearchClick={onSearchClick} />
+        <Search data-test="searchContainer" onSearchClick={onSearchClick} />
         {displayMessage && 
-        <Grid container item xs={12} justify="center">
+        <Grid container item xs={12} justify="center" data-test="successMessage">
              <DivSuccess>
                 {displayMessage}
              </DivSuccess>
         </Grid>
         }
         {defaultView && data && 
-        <Grid item xs={12} container>
+        <Grid item xs={12} container data-test="employeeData">
             <EmployeeData data={data} onActionClick={onActionClick}  />
         </Grid>
         }
         {actionFormView && 
-            <ActionForm data={selectedData}  onDataAction={onDataAction} onCancel={onActionClick} isEdit={isEdit} />
+            <ActionForm data-test="actionForm" data={selectedData}  onDataAction={onDataAction} onCancel={onActionClick} isEdit={isEdit} />
         }
         {
         isSending && 
@@ -123,10 +123,10 @@ const Container = () : JSX.Element => {
             </Backdrop>
         }
         {confirmationModal && 
-             <ModalComponent open={confirmationModal} onClose={onClose} onDeleteClick={onDataAction} data={selectedData}/>
+             <ModalComponent data-test="modalContainer" open={confirmationModal} onClose={onClose} onDeleteClick={onDataAction} data={selectedData}/>
         }
         {error && 
-            <Grid container item xs={12}>
+            <Grid container item xs={12} data-test="errorMessage">
                 <DivError>
                     {error}
                 </DivError>

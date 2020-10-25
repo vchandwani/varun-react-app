@@ -42,8 +42,8 @@ const EmployeeData: React.FC<TableProps> = ({ data,onActionClick}: TableProps)  
   const classes = useStyles();
   
   return (
-    <Grid container justify="center" alignItems="center" alignContent="center" direction="row">
-      <Grid item container xs={12} sm={8} justify="flex-end" alignItems="center">
+    <Grid container justify="center" alignItems="center" alignContent="center" direction="row" data-test="tableContainer">
+      <Grid item container xs={12} sm={8} justify="flex-end" alignItems="center" data-test="tableButton">
         <Button variant="contained" onClick={() => onActionClick(DataOperation.ADD)}>
           Add Eemployee
         </Button>
@@ -63,7 +63,7 @@ const EmployeeData: React.FC<TableProps> = ({ data,onActionClick}: TableProps)  
             <TableBody>
               {data?.map((dataObject:EmployeeDataObject,index:number) => (
                 dataObject.firstName && (
-                <StyledTableRow key={index}>
+                <StyledTableRow key={index} data-test="tableRow">
                   <TableCell>
                     {dataObject.firstName}
                   </TableCell>
