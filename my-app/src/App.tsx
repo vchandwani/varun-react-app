@@ -13,8 +13,6 @@ interface AppProps {
 }
 
 const  App =  (props:AppProps): JSX.Element => {
-  console.log('props.store');
-  console.log(props.store);
   return (
     <Grid className="App" container>
       <Provider store={props.store}>

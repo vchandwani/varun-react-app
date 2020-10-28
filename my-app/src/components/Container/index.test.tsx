@@ -26,8 +26,16 @@ describe('Container initial load ',()=>{
     wrapper = setup();
   });
 
-  test('renders container', async() => {
-    console.log(wrapper.debug());
+  it('renders container', () => {
+    wrapper = setup({
+    employeeData: {
+      isLoading:true,
+      isLoaded:false,
+      employeeData : [],
+      isActioned: false,
+    }});
+    const headerRow = findByTestAttr(wrapper,'header');
+    console.log(headerRow.debug());
   });
   
   // it('renders Container with heading ', () => {
