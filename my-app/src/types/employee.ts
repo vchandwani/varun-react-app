@@ -4,6 +4,10 @@ export interface EmployeeDataObject {
     dateOfBirth:Date|null;
     id?:number;
 }
+export interface SearchParams {
+    firstName?:string;
+    lastName?:string; 
+}
 
 export enum DataOperationRequest {
     GET ='get',

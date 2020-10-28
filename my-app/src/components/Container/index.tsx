@@ -6,9 +6,14 @@ import ActionForm from '../ActionForm';
 import Search from '../Search';
 import ModalComponent from '../Modal';
 import {Grid,Typography,CircularProgress,Backdrop} from '@material-ui/core';
-import useEmployeeDetails from '../../services';
-import {EmployeeDataObject,UrlLink,DataOperation} from '../../types/employee';
+import {EmployeeDataObject,UrlLink,DataOperation,SearchParams} from '../../types/employee';
 import styled from 'styled-components';
+import {loadEmployeeData} from '../../store/modules/employeeData';
+import {useDispatch, useSelector} from 'react-redux';
+import { RootState } from '../../store/reducers';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import Collapse from '@material-ui/core/Collapse';
 
 const DivSuccess = styled.div`
   color: green;
@@ -28,26 +33,47 @@ const Container = () : JSX.Element => {
     const [isEdit, setIsEdit] = useState<boolean>(false);
     const [selectedData, setSelectedData] = useState<EmployeeDataObject>(Object);
     const [displayMessage,setDisplayMessage] = useState<string>('');
-    const {dataOperation, isSending,isSent,error,data,actioned} = useEmployeeDetails();
-   
+    const [open, setOpen] = useState<boolean>(false);
+    const [employeeDataList, setEmployeeDataList] = useState<EmployeeDataObject[]>([]);
+    const dispatch = useDispatch();
+    const {isLoading,isLoaded,employeeData, error, isActioned} = useSelector(
+        (state:RootState) => state.employeeData
+    );
+
     useEffect(() => {
         //Load data on initial load
-        dataOperation(UrlLink.REQUEST_URL,DataOperation.READ)
+        dispatch(loadEmployeeData(
+            UrlLink.REQUEST_URL,DataOperation.READ
+        ));
       }, []);
+
+    useEffect(() => {
+        //Load data on initial load
+        employeeData && setEmployeeDataList(employeeData);
+      }, [employeeData]);
       
     useEffect(() => {
         //Load data on initial load
-        if(isSent && !isSending && actioned){
+        if(isLoaded && !isLoading && isActioned){
             setIsDefaultView(true);
             setActionFormView(false);
-            dataOperation(UrlLink.REQUEST_URL,DataOperation.READ);
             setDisplayMessage('Success');
+            setOpen(true);
+            dispatch(loadEmployeeData(
+                UrlLink.REQUEST_URL,DataOperation.READ
+            ));
         }
-      }, [isSent,isSending,actioned]);
-
+      }, [isLoading,isLoaded,isActioned]);
+    
+    const cancelClick = () : void => {
+        setIsDefaultView(true);
+        setActionFormView(false);
+        setDisplayMessage('');
+        setOpen(false);
+    }
       
     const onActionClick = (operation?:DataOperation,dataSet?:EmployeeDataObject) : void => {
-        switch (operation) {
+         switch (operation) {
             case DataOperation.ADD:
                 setIsDefaultView(false);
                 setActionFormView(true);
@@ -75,18 +101,37 @@ const Container = () : JSX.Element => {
 
     const onDataAction = (data?:EmployeeDataObject,operation?:DataOperation) : void => {
         if(operation === DataOperation.ADD) {
-            dataOperation(UrlLink.REQUEST_URL,DataOperation.ADD,data);
-        } else if (operation === DataOperation.EDIT) {
-            dataOperation(UrlLink.REQUEST_URL,DataOperation.EDIT,data);
+            dispatch(loadEmployeeData(
+                UrlLink.REQUEST_URL,DataOperation.ADD,data
+            ));
+         } else if (operation === DataOperation.EDIT) {
+            dispatch(loadEmployeeData(
+                UrlLink.REQUEST_URL,DataOperation.EDIT,data
+            ));
         } else if (operation === DataOperation.DELETE) {
             setIsConfirmationModal(false);
-            dataOperation(UrlLink.REQUEST_URL,DataOperation.DELETE,data);
+            dispatch(loadEmployeeData(
+                UrlLink.REQUEST_URL,DataOperation.DELETE,data
+            ));
         }
     }
-    const onSearchClick = (searchParams?:string) : void => {
-        let url:string = UrlLink.REQUEST_URL;
-        searchParams &&( url = url.concat(searchParams));
-        dataOperation(url,DataOperation.READ);
+    const onSearchClick = (searchParams?:SearchParams) : void => {
+        let searchedEmployeeData : EmployeeDataObject[] = [];
+        if(searchParams?.firstName || searchParams?.lastName) {
+            // Search value
+            employeeData?.map((employeeDataVal:EmployeeDataObject)=>{
+                if(
+                    (searchParams?.firstName && employeeDataVal?.firstName?.toLowerCase().indexOf(searchParams?.firstName?.toLowerCase()) > -1)  ||
+                    (searchParams?.lastName && employeeDataVal?.lastName?.toLowerCase().indexOf(searchParams?.lastName?.toLowerCase()) > -1)
+                ){
+                    searchedEmployeeData.push(employeeDataVal);
+                }
+            });
+            setEmployeeDataList(searchedEmployeeData);
+        } else {
+            //Reset to old data set
+            employeeData && setEmployeeDataList(employeeData);
+        }
     }
 
     const onClose = () : void => {
@@ -103,21 +148,35 @@ const Container = () : JSX.Element => {
         {displayMessage && 
             <Grid container item xs={12} justify="center" data-test="successMessage">
                 <DivSuccess>
-                    {displayMessage}
+                    <Collapse in={open}>
+                        <IconButton
+                            aria-label="close"
+                            color="inherit"
+                            size="small"
+                            onClick={() => {
+                                setOpen(false);
+                            }}
+                            >
+                            <CloseIcon fontSize="inherit" />
+                        </IconButton>
+                        {displayMessage}
+                     </Collapse>
                 </DivSuccess>
             </Grid>
         }
-        {isDefaultView && data && 
+        {isDefaultView && employeeDataList && 
         <Grid item xs={12} container data-test="employeeData">
-            <EmployeeData data={data} onActionClick={onActionClick}  />
+            <EmployeeData data={employeeDataList} onActionClick={onActionClick}  />
         </Grid>
         }
         {actionFormView && 
-            <ActionForm data-test="actionForm" data={selectedData}  onDataAction={onDataAction} onCancel={onActionClick} isEdit={isEdit} />
+            <Grid item xs={12} container data-test="employeeData">
+                <ActionForm data-test="actionForm" data={selectedData}  onDataAction={onDataAction} onCancel={cancelClick} isEdit={isEdit} />
+            </Grid>
         }
         {
-        isSending && 
-            <Backdrop  open={isSending} >
+        isLoading && 
+            <Backdrop  open={isLoading} >
                 <CircularProgress color="inherit" />
             </Backdrop>
         }

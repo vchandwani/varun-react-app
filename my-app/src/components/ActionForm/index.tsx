@@ -8,6 +8,8 @@ import * as Yup from 'yup';
 
 const StyledForm = styled(Form)`
   margin: 10px;
+  max-width:680px;
+  width:100%;
 `;
 const StyledButton = styled(Button)`
   margin: 10px;
@@ -37,13 +39,13 @@ const EmployeeSchema = Yup.object().shape({
 
 const ActionForm: React.FC<ActionFormProps> = ({ data,onDataAction,isEdit,onCancel}: ActionFormProps)  : JSX.Element => {
   const initialValues:EmployeeDataObject = {
-    firstName: data?.firstName?data?.firstName:'',
-    lastName: data?.lastName?data?.lastName:'',
-    dateOfBirth: data?.dateOfBirth?data?.dateOfBirth:null,
-    id : data?.id && data.id 
+    firstName: (isEdit && data?.firstName) ? data?.firstName :'',
+    lastName: (isEdit && data?.lastName) ? data?.lastName : '',
+    dateOfBirth: (isEdit && data?.dateOfBirth) ? data?.dateOfBirth : null,
+    id : isEdit ? data?.id : undefined 
   }
   return (
-    <Grid container justify="center" alignItems="center" alignContent="center" direction="row" data-test="actionForm">
+    <Grid container justify="center" alignContent="center"  direction="row" data-test="actionForm" item xs={12}>
        <Formik
         initialValues={initialValues}
         validationSchema={EmployeeSchema}

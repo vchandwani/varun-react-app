@@ -3,11 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import store, {persistor} from './store';
+import {Provider} from 'react-redux';
+
+const renderApp = () : JSX.Element => {
+  return <App store={store} sessionPersistor={persistor} />
+}
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    {renderApp()}
+  </Provider>,
   document.getElementById('root')
 );
 
