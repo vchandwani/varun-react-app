@@ -2,15 +2,8 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AppThunk} from '../../../types';
  import api from '../../../lib/api';
 import {AppDispatch} from '../../index';
-import { EmployeeDataObject,DataOperation } from '../../../types/employee';
+import { EmployeeDataObject,DataOperation,EmployeeDataState } from '../../../types/employee';
 
-export interface EmployeeDataState {
-    isLoading?:boolean;
-    isLoaded?:boolean;
-    error?:string|undefined;
-    employeeData?:EmployeeDataObject[];
-    isActioned ?:boolean;
-}
 
 export interface EmployeeDataActionPayload {
     data?:EmployeeDataObject[];

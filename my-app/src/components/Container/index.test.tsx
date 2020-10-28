@@ -33,7 +33,9 @@ describe('Container initial load ',()=>{
       isLoaded:false,
       employeeData : [],
       isActioned: false,
+      error:undefined
     }});
+    console.log(wrapper.debug());
     const headerRow = findByTestAttr(wrapper,'header');
     console.log(headerRow.debug());
   });

@@ -12,7 +12,6 @@ Test can be executed by below command on my-app folder:
 
 I have used jest enzyme for running test.
 
-I was not able to do custom Hook testing, I will need to learn that and will do it in coming weeks.
+I was not able to do custom Hook testing, due to time shortage.
 
 Further components can be de-structured, to make them more independent.
-

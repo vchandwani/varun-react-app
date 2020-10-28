@@ -26,3 +26,15 @@ export enum  DataOperation {
 export enum UrlLink {
     REQUEST_URL='http://localhost:3000/employees'
 }
+
+export interface EmployeeDataState {
+    isLoading?:boolean;
+    isLoaded?:boolean;
+    error?:string|undefined;
+    employeeData?:EmployeeDataObject[];
+    isActioned ?:boolean;
+}
+
+export interface EmployeeDataStateObj {
+    employeeData : EmployeeDataState
+}

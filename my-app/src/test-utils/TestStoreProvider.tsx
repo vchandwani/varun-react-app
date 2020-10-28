@@ -2,22 +2,25 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import { EmployeeDataStateObj } from '../types/employee';
 
-const initialStoreState = {
-  employeeData: {
+const initialStoreState:EmployeeDataStateObj = {
+  employeeData : {
     isLoading:false,
     isLoaded:true,
     employeeData : [
       {
-        id:1,
         firstName:'first',
         lastName:'last',
-        dateOfBirth:"2020-10-10"
+        dateOfBirth: new Date(),
+        id:1
       }
     ],
     isActioned: false,
-  },
+    error:undefined
+  }
 };
+
 const mockStore = configureStore([thunk]);
 export interface TestStoreProviderProps {
   storeState?: any;
