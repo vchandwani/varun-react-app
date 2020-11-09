@@ -2,6 +2,8 @@ I have used json-server for api calls, To run json mock api kindly execute below
         ->npm install -g json-server
         ->json-server --watch src/db.json
 
+URL : http://localhost:3000/employees
+
 To run react pplication kindly execute below commands on the folder my-app, it will run on port 3006 as json server runs on 3000
     ->npm install
     ->npm start
@@ -10,6 +12,7 @@ To run react pplication kindly execute below commands on the folder my-app, it w
 Test can be executed by below command on my-app folder:
     ->npm test
 
+URL : http://localhost:3006/
 
 I have used jest enzyme for running test.
 
